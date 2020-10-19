@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Betting Game",
   "author": "Dapp University",
+  "homepage": ".",
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
@@ -11,6 +12,7 @@
     "babel-preset-stage-3": "6.24.1",
     "babel-register": "6.26.0",
     "bootstrap": "4.5.2",
+    "identicon.js": "^2.3.3",
     "react-bootstrap": "1.3.0",
     "react-dom": "16.13.1",
     "react-scripts": "3.4.3",
