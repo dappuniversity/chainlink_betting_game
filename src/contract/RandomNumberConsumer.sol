@@ -1,6 +1,13 @@
+/** This example code is designed to quickly deploy an example contract using Remix.
+ *  If you have never used Remix, try our example walkthrough: https://docs.chain.link/docs/example-walkthrough
+ *  You will need testnet ETH and LINK.
+ *     - Kovan ETH faucet: https://faucet.kovan.network/
+ *     - Kovan LINK faucet: https://kovan.chain.link/
+ */
+
 pragma solidity 0.6.6;
 
-import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 
 contract RandomNumberConsumer is VRFConsumerBase {
     
@@ -31,7 +38,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * Requests randomness from a user-provided seed
      */
     function getRandomNumber(uint256 userProvidedSeed) public returns (bytes32 requestId) {
-        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
+        require(LINK.balanceOf(address(this)) > fee, "Not enough LINK - fill contract with faucet");
         return requestRandomness(keyHash, fee, userProvidedSeed);
     }
 
@@ -40,5 +47,15 @@ contract RandomNumberConsumer is VRFConsumerBase {
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
         randomResult = randomness;
+    }
+    
+    /**
+     * Withdraw LINK from this contract
+     * 
+     * DO NOT USE THIS IN PRODUCTION AS IT CAN BE CALLED BY ANY ADDRESS.
+     * THIS IS PURELY FOR EXAMPLE PURPOSES.
+     */
+    function withdrawLink() external {
+        require(LINK.transfer(msg.sender, LINK.balanceOf(address(this))), "Unable to transfer");
     }
 }

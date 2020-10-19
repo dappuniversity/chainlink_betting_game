@@ -15,18 +15,16 @@ class Navbar extends Component {
         <img src={dice_logo} height="32" alt="logo" />
           B3tt1ng G@m3
         </a>
-        {!this.props.account ? <div id="loader" className="spinner-border text-light" role="status"></div> :
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
             <a
               className="text-white"
-              href={"https://rinkeby.etherscan.io/address/" + this.props.account}
+              href={"https://rinkeby.etherscan.io/address/" + 0x0}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {(this.props.account)}
+              {'0x0'}
             </a>&nbsp;
           </li>
-        }
       </nav>
     );
   }
