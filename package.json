@@ -2,7 +2,7 @@
   "name": "chainlink_betting_game",
   "version": "0.1.0",
   "description": "Betting Game",
-  "author": "Dapp University",
+  "author": "github.com/xternet",
   "homepage": ".",
   "dependencies": {
     "babel-polyfill": "6.26.0",

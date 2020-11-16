@@ -50,7 +50,7 @@ class Main extends Component {
 
                         if(reg.test(this.props.amount)){
                           const amount = (this.props.amount).toString()
-                          this.props.makeBet(0, window.web3.utils.toWei(amount))
+                          this.props.makeBet(0, this.props.web3.utils.toWei(amount))
                         } else {
                           window.alert('Please type positive interger or float numbers')
                         }
@@ -65,12 +65,13 @@ class Main extends Component {
                         event.preventDefault()
                         //start with digit, digit+dot* or single dot*, end with digit.
                         var reg = new RegExp("^[0-9]*.?[0-9]+$")
-
-                        if(reg.test(this.props.amount)){
+                        var minBet = Number(this.props.web3.utils.fromWei((this.props.minBet).toString())).toFixed(5)
+                        
+                        if(reg.test(this.props.amount) && this.props.amount>=minBet){
                           const amount = (this.props.amount).toString()
-                          this.props.makeBet(1, window.web3.utils.toWei(amount))
+                          this.props.makeBet(1, this.props.web3.utils.toWei(amount))
                         } else {
-                          window.alert('Please type positive interger or float number')
+                          window.alert('Please make sure that:\n*You typed positive interger or float number\n* Typed value is >= than MinBet (not all ETH decimals visible)\n* You are using Rinkeby network')
                         }
                       }}>
                         High
@@ -78,10 +79,27 @@ class Main extends Component {
                   </div>
                   <div>
                     {!this.props.balance ? <div id="loader" className="spinner-border float-right" role="status"></div> :
-                      <div className="float-right">
-                        <b>MaxBet:</b> {Number(window.web3.utils.fromWei((this.props.maxBet).toString())).toFixed(5)} <b>ETH</b>
+                      <div className="float-right" style={{ width: '220px' }}>
+                        <div className="float-left" style={{ height: '17px' }}>
+                          <b>MaxBet&nbsp;</b>
+                        </div>
+                        <div className="float-right" style={{ height: '17px' }}>
+                          {Number(this.props.web3.utils.fromWei((this.props.maxBet).toString())).toFixed(5)} <b>ETH&nbsp;</b>
+                        </div>                      
                         <br></br>
-                        <b>Balance:</b> {Number(window.web3.utils.fromWei((this.props.balance).toString())).toFixed(5)} <b>ETH&nbsp;</b>
+                        <div className="float-left" style={{ height: '17px' }}>
+                          <b>MinBet</b>($1)&nbsp;
+                        </div>
+                        <div className="float-right" style={{ height: '17px' }}>
+                          {Number(this.props.web3.utils.fromWei((this.props.minBet).toString())).toFixed(5)} <b>ETH&nbsp;</b>
+                        </div>
+                        <br></br>
+                        <div className="float-left">
+                          <b>Balance&nbsp;</b>
+                        </div>
+                        <div className="float-right">
+                          {Number(this.props.web3.utils.fromWei((this.props.balance).toString())).toFixed(5)} <b>ETH&nbsp;</b>
+                        </div>
                       </div>
                     }
                   </div>
